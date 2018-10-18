@@ -22,6 +22,8 @@ $ bin/console eccube:install
 ### exceeded the timeout of 60 seconds."というエラーが出て処理が正常終了
 ### しない場合があります。これは、処理がタイムアウトしているだけですので致命的
 ### ではありません。コマンドを何度か立て続けに実行していると正常終了したりします。
+### それでもダメな場合は、vendor/symfony/process/Process.phpのコンストラクタ
+### で$timeout = 60となっているのを一時的に変えてください。
 ```
 
 便利のため、MTAやDBを含むEC-CUBE環境全体を構築するdocker-compose.ymlのサンプルを含めておきました。下記です。
