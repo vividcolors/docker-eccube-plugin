@@ -1,0 +1,34 @@
+version: '2'
+services:
+  web:
+    image: myawesome-web
+    volumes:
+      - ./MyAwesomePlugin:/app/app/Plugin/MyAwesomePlugin
+    container_name: myawesome-web
+    ports:
+      - "80:80"
+      - "443:443"
+    links: 
+      - mysql
+  data:
+    image: busybox
+    volumes: 
+      - ./mysql-data:/var/lib/mysql
+  mysql:
+    image: mysql:5.7
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: ecb
+      MYSQL_USER: ecb
+      MYSQL_PASSWORD: 12345
+    ports:
+      - "13306:13306"
+    volumes_from: 
+      - data
+    volumes: 
+      - ./setup/init.sql:/docker-entrypoint-initdb.d/initial.sql
+    container_name: myawesome-db
+  mailhog: 
+    image: mailhog/mailhog
+    ports:
+      - "8025:8025"
